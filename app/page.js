@@ -62,6 +62,7 @@ export default function Home() {
     setIsLoading(false);
   };
 
+
   return (
     <main className="relative flex flex-col items-center justify-start w-full h-full min-h-screen p-6 sm:p-12 gap-y-6 md:p-20 lg:p-24 dark:bg-[#1F242A]">
       <nav className="absolute flex items-center justify-between w-full px-6 top-4">
@@ -70,7 +71,7 @@ export default function Home() {
       <section className="flex flex-col items-center justify-between gap-y-6">
         <h1 className="max-w-xl mb-6 text-5xl font-bold tracking-wide uppercase text-primary">GitHub Profile</h1>
         <Form {...form} className="flex flex-col items-center justify-center gap-y-6">
-          <form onSubmit={onSubmit} className="flex flex-col items-center justify-center gap-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-center justify-center gap-y-6">
             <FormField
               control={form.control}
               name="search"
