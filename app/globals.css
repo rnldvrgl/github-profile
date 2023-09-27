@@ -72,6 +72,6 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground dark:bg-gradient-to-br dark:from-indigo-500 dark:to-indigo-800
   }
 }
