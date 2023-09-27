@@ -3,11 +3,6 @@ export const fetchUserData = async (githubURL, username) => {
         const user_response = await fetch(githubURL + username);
         const repo_response = await fetch(githubURL + username + "/repos");
 
-        if (!user_response.ok || !repo_response.ok) {
-            // Handle the error, for example, by throwing an error or returning an error object.
-            throw new Error("Failed to fetch user or repo data");
-        }
-
         const user = await user_response.json();
         const repos = await repo_response.json();
 
