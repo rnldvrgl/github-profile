@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -50,6 +50,12 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        ghblue: '#4183c4',
+        ghlightgray: '#999999',
+        ghgray: '#666666',
+        ghdarkgray: '#333333',
+        ghgreen: '#6cc644',
+        ghred: '#bd2c00',
       },
       borderRadius: {
         lg: "var(--radius)",
