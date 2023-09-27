@@ -24,7 +24,7 @@ const formSchema = z.object({
 export default function Home() {
   const githubURL = "https://api.github.com/users/";
   const [userData, setUserData] = useState(null);
-  const [repoData, setRepoData] = useState(null);
+  const [repoData, setRepoData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
@@ -51,6 +51,7 @@ export default function Home() {
   };
 
 
+  console.log(userData)
   return (
     <main className="relative flex flex-col items-center justify-start w-full h-full min-h-screen p-6 sm:p-12 gap-y-6 md:p-20 lg:p-24 dark:bg-[#1F242A]">
       <nav className="absolute flex items-center justify-between w-full px-6 top-4">
@@ -124,38 +125,42 @@ export default function Home() {
         </>
       ) : (
         <>
-          {userData && (
-            <Card className="max-w-[1000px] w-full">
-              <CardHeader className="gap-6">
-                <div className="flex flex-col items-center gap-6 lg:flex-row">
-                  <Avatar className="border-[10px] border-[#2a2a72] w-[150px] h-[150px]">
-                    {userData.avatar_url ? (
-                      <AvatarImage src={userData.avatar_url} alt={`Avatar of ${userData.login}`} />
-                    ) : (
-                      <AvatarFallback>{userData.login[0]}</AvatarFallback>
-                    )}
-                  </Avatar>
-                  <div className="flex flex-col items-center gap-2 lg:items-start">
-                    <CardTitle className="text-center lg:text-left">
-                      {userData?.name ? userData.name : `(No Name Available)`}
-                    </CardTitle>
-                    <CardDescription className="text-center lg:text-left">
-                      {userData?.bio}
-                    </CardDescription>
-                    {userData.company && (
+          {userData?.message ? (
+            <div>No user found</div>
+          ) : (
+            userData ? (
+              <Card className="max-w-[1000px] w-full">
+                <CardHeader className="gap-6">
+                  <div className="flex flex-col items-center gap-6 lg:flex-row">
+                    <Avatar className="border-[10px] border-[#2a2a72] w-[150px] h-[150px]">
+                      {userData.avatar_url ? (
+                        <AvatarImage src={userData.avatar_url} alt={`Avatar of ${userData.login}`} />
+                      ) : (
+                        <AvatarFallback>{userData.login[0]}</AvatarFallback>
+                      )}
+                    </Avatar>
+                    <div className="flex flex-col items-center gap-2 lg:items-start">
+                      <CardTitle className="text-center lg:text-left">
+                        {userData?.name ? userData.name : `(No Name Available)`}
+                      </CardTitle>
+                      <CardDescription className="text-center lg:text-left">
+                        {userData?.bio}
+                      </CardDescription>
+                      {userData.company && (
+                        <div className="flex items-center justify-center mt-4 lg:items-start lg:justify-start gap-x-2">
+                          <Badge className="flex gap-1 py-1" variant="secondary"><Building /> {userData.company}</Badge>
+                        </div>
+                      )}
                       <div className="flex items-center justify-center mt-4 lg:items-start lg:justify-start gap-x-2">
-                        <Badge className="flex gap-1 py-1" variant="secondary"><Building /> {userData.company}</Badge>
+                        <Badge className="flex gap-1"><PersonIcon /> {userData.followers} Followers</Badge>
+                        <Badge>{userData.following} Following</Badge>
+                        <Badge>{userData.public_repos} Public Repositories</Badge>
                       </div>
-                    )}
-                    <div className="flex items-center justify-center mt-4 lg:items-start lg:justify-start gap-x-2">
-                      <Badge className="flex gap-1"><PersonIcon /> {userData.followers} Followers</Badge>
-                      <Badge>{userData.following} Following</Badge>
-                      <Badge>{userData.public_repos} Public Repositories</Badge>
                     </div>
                   </div>
-                </div>
-              </CardHeader>
-            </Card>
+                </CardHeader>
+              </Card>
+            ) : null
           )}
           {repoData.length > 0 && (
             <Card className="w-full max-w-[1000px]">
