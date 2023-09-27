@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
@@ -61,7 +61,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-24">
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-12 md:p-20 lg:p-24">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center justify-center gap-y-6">
           <FormField
@@ -83,23 +83,48 @@ export default function Home() {
         </form>
       </Form >
       {userData && (
-        <Card>
-          <CardHeader>
-            <Avatar>
-              <AvatarImage src={userData?.avatar_url} />
-              <AvatarFallback>
-                TEST
-              </AvatarFallback>
-            </Avatar>
-            <CardTitle>
-              {userData?.name}
-            </CardTitle>
-            <CardDescription>
-              {userData?.bio}
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      )}
-    </main>
+        <Card className="max-w-[800px] w-full">
+          {userData.message ? (
+            <div>No user found</div>
+          ) : (
+            <>
+              <CardHeader className="gap-6">
+                <div className="flex flex-col gap-6 md:flex-row">
+                  <Avatar className="mx-auto border-[10px] border-[#2a2a72] w-[150px] h-[150px] md:w-[100px] md:h-[100px] lg:w-[150px] lg:h-[150px]">
+                    <AvatarImage src={userData?.avatar_url} alt="Avatar Image" className="" />
+                    <AvatarFallback>
+                      No Image
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="grid items-center gap-2">
+                    <CardTitle>
+                      {userData?.name} ({userData?.login})
+                    </CardTitle>
+                    <CardDescription>
+                      {userData?.bio}
+                    </CardDescription>
+                  </div>
+                </div >
+
+                <ul className="grid items-center grid-cols-1 gap-4 md:grid-cols-3">
+                  <li>
+                    <strong>Followers:</strong> {userData?.followers}
+                  </li>
+                  <li>
+                    <strong>Following:</strong> {userData?.following}
+                  </li>
+                  <li>
+                    <strong>Public Repositories:</strong> {userData?.public_repos}
+                  </li>
+                </ul>
+              </CardHeader >
+              <CardContent>
+              </CardContent>
+            </>
+          )}
+        </Card >
+      )
+      }
+    </main >
   )
 }
