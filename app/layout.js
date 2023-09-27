@@ -15,8 +15,7 @@ export default function RootLayout({ children }) {
       <body className={tomorrow.className} >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange
         >
           {children}
